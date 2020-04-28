@@ -287,12 +287,10 @@ if __name__ == '__main__':
         if opt in ['-h', '--h', '--help']:
             print(__doc__)
             exit()
-        elif opt == '-s':
+        elif opt in ['-s']: # elif opt == '-s' :
             file_name = argv.split('.')[0]
             source_file = open(argv, 'r')
             content = source_file.read()
-            # print(content)
-            # print(type(content))
         elif opt == '-l':
             lexer()
 
