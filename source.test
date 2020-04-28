@@ -1,0 +1,6 @@
+{Test Token}
+if id = 0 then
+	read(id);
+else
+	write(id);
+endif;
