@@ -14,7 +14,6 @@ Examples:
     python mycompiler.py -s source.test -a
 '''
 
-import re
 import sys
 import getopt
 
