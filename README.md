@@ -16,14 +16,18 @@ Python 3.6.9
 vscode 1.44.2
 
 ## Options
-​    -h, --help         show help
-​    -s file         select source file
-​    -l              lexical-ananlysis
+
+```bash
+-h, --help         show help
+-s file         select source file
+-l              lexical-ananlysis
+```
 
 ## Examples
-​    python mycompiler.py -h
-​    python mycompiler.py -s source.test -a
-
+```bash
+python mycompiler.py -h
+python mycompiler.py -s source.test -a
+```
 ### Copyright
 
 This is free software and you can use it as you like.
