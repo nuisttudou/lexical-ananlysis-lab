@@ -1,21 +1,28 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from Ui_main import Ui_MainWindow
 
-'''
-Usage: python mycompiler.py -s [file] [options]
+content=None
+class MainWindow(QMainWindow, Ui_MainWindow):
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+        self.set_trigger()
+        self.show()
+    def set_trigger(self):
+        # self.actionloadFile.triggered.connect()
+        self.action_lex.triggered.connect(self.set_lex_button)
+    # def load_file(self):    
+    def set_lex_button(self):
+        global content
+        content=self.textEdit_in.toPlainText()
+        ans=lexer()
+        self.textEdit_out.setText(ans)
 
-Options:
-    -h, --h         show help
-    -s file         import the source file, required!
-    -l              lexer
 
-Examples:
-    python mycompiler.py -h
-    python mycompiler.py -s source.test -a
-'''
 
-import sys
-import getopt
+
 
 # token比较大的分类
 TOKEN_STYLE = [
@@ -83,11 +90,7 @@ operators = [
 # 分隔符
 delimiters = ['(', ')', '{', '}', '[', ']', ',', '\"', ';']
 
-# c文件名字
-file_name = None
 
-# 文件内容
-content = None
 
 
 class Token(object):
@@ -109,6 +112,7 @@ class Lexer(object):
         self.tokens = []
         self.row_now=1
         self.is_comment=False
+
     # 判断是否是空白字符
     def is_blank(self, index):
         if content[index] == '\n' or content[index] == '\r':
@@ -253,26 +257,20 @@ class Lexer(object):
 def lexer():
     lexer = Lexer()
     lexer.main()
+    out=""
     for token in lexer.tokens:#输出
-        print(token.row_number,':',token.type,'', token.value) #print('(%s, %s)' % (token.type, token.value))
+        # print(token.row_number,':',token.type,'', token.value) #print('(%s, %s)' % (token.type, token.value))
+        out+=str(token.row_number)+': '+token.type+' '+token.value+"\n" #print('(%s, %s)' % (token.type, token.value))
+    print(out)
+    return out
+
+
+
 
 
 
 if __name__ == '__main__':
-    try:
-        opts, argvs = getopt.getopt(sys.argv[1:], 's:lpah', ['help'])
-    except:
-        print(__doc__)
-        exit()
 
-    for opt, argv in opts:
-        if opt in ['-h', '--h', '--help']:
-            print(__doc__)
-            exit()
-        elif opt in ['-s']:
-            file_name = argv.split('.')[0]
-            source_file = open(argv, 'r')
-            content = source_file.read()
-        elif opt == '-l':
-            lexer()
-
+    app = QApplication([])
+    window = MainWindow()
+    app.exec_()
