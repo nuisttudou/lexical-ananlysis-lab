@@ -1,6 +1,5 @@
 # Mycompiler
 
-## 实验一报告下载(https://git.vicz.cn/20171308085/lab1-lexical-ananlysis/releases)
 
 
 ## Run
